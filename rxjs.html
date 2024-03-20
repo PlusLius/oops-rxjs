@@ -23,7 +23,7 @@
 
         
     </script> -->
-    <input id="search" type="text" placeholder="请输入搜索内容...">
+    <!-- <input id="search" type="text" placeholder="请输入搜索内容...">
     <script>
         const fromEvent = rxjs.fromEvent
         const map = rxjs.map
@@ -46,7 +46,7 @@
             )
         ).subscribe(console.log)
 
-    </script>
+    </script> -->
     <!-- <script>
         const Observable = rxjs.Observable
 
@@ -130,6 +130,118 @@
       //     demoSubject.next('hello')
       // }, 2000)
     </script> -->
+    <!-- <script>
+        const range = rxjs.range
+        const map = rxjs.map
+
+        range(1, 10)
+        .pipe(map(n => n * 10))
+        .subscribe(value => {
+            console.log(value);
+        })
+    </script> -->
+    <!-- <script>
+        const from = rxjs.from
+
+        // from(['a','b','c']).subscribe(console.log)
+        function p(){
+            return new Promise((res) => {
+                setTimeout(() => {
+                    res({
+                        a:1
+                    })
+                }, 2000)
+            })
+        }
+        from(p()).subscribe(console.log)
+    </script> -->
+    <!-- <script>
+        const from = rxjs.from
+        const forkJoin = rxjs.forkJoin
+
+        axios.interceptors.response.use(response => response.data)
+        
+        forkJoin({
+            goods: from(axios.get(`https://jsonplaceholder.typicode.com/posts?q=a`)),
+            category: from(axios.get(`https://jsonplaceholder.typicode.com/posts?q=b`))
+        }).subscribe(console.log)
+    </script> -->
+    <!-- <button id="btn">按钮</button>
+    <script>
+        const fromEvent = rxjs.fromEvent
+        const map = rxjs.map
+        const pluck = rxjs.pluck
+
+        const button = document.getElementById('btn')
+
+        fromEvent(button, 'click')
+        .pipe(
+          pluck('target')
+        )
+        .subscribe(console.log)
+
+    </script> -->
+    <!-- <button id="btn">按钮</button>  
+    <script>
+        const interval = rxjs.interval
+        const fromEvent = rxjs.fromEvent
+        const switchMap = rxjs.switchMap
+
+        const button = document.getElementById('btn')
+
+        fromEvent(button, 'click')
+        .pipe(
+            switchMap(e => interval(1000))
+        )
+        .subscribe(console.log)
+
+        // interval(1000).subscribe(console.log)
+        
+    </script> -->
+    <!-- <button id="btn">按钮</button>
+    <script>
+        const range = rxjs.range
+        const take = rxjs.take
+        const takeWhile = rxjs.takeWhile
+        const takeUntil = rxjs.takeUntil
+        const fromEvent = rxjs.fromEvent
+
+        const button = document.getElementById('btn')
+
+        fromEvent(document, 'mousemove')
+        .pipe(
+            takeUntil(fromEvent(button, 'click'))
+        )
+        .subscribe(console.log)
+
+        // range(1,10)
+        // .pipe(
+        //     takeWhile(x => x < 3)
+        // )
+        // .subscribe(console.log)
+    </script> -->
+    <!-- <script>
+        const fromEvent = rxjs.fromEvent
+        const throttleTime = rxjs.throttleTime
+        const debounceTime = rxjs.debounceTime
+
+        fromEvent(document, 'click')
+        .pipe(
+            // throttleTime(2000)
+            debounceTime(2000)
+        )
+        .subscribe(console.log)
+    </script> -->
+    <script>
+        const of = rxjs.of
+        const distinctUntilChanged = rxjs.distinctUntilChanged
+
+        // of('a',1,true,{},[]).subscribe(console.log)
+        of(1,1,2,2,3,4)
+        .pipe(
+            distinctUntilChanged()
+        )
+        .subscribe(console.log)
+    </script>
   </body>
 </html>
-
