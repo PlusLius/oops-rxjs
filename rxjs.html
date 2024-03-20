@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rxjs</title>
+  </head>
+  <body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/rxjs/7.8.1/rxjs.umd.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.js"></script>
+    <!-- <button id="btn">获取信息</button>
+    <script>
+        const fromEvent = rxjs.fromEvent
+        const concatMap = rxjs.concatMap
+        const from = rxjs.from
+
+        const button = document.getElementById('btn')
+
+        fromEvent(button, 'click').pipe(
+            concatMap(event => from(axios.get('http://127.0.0.1:5501/rxjs/rxjs.html'))),
+            concatMap(token => from(axios.get('http://127.0.0.1:5501/rxjs/rxjs.html')))
+        ).subscribe(console.log)
+
+        
+    </script> -->
+    <input id="search" type="text" placeholder="请输入搜索内容...">
+    <script>
+        const fromEvent = rxjs.fromEvent
+        const map = rxjs.map
+        const switchMap = rxjs.switchMap
+        const from = rxjs.from
+        const debounceTime = rxjs.debounceTime
+        const distinctUntilChanged = rxjs.distinctUntilChanged
+        const pluck = rxjs.pluck
+
+        const search = document.getElementById('search')
+        fromEvent(search, 'keyup').pipe(
+            debounceTime(700),
+            map(e => e.target.value),
+            distinctUntilChanged(),
+            switchMap(keyword => 
+                from(axios.get(`https://jsonplaceholder.typicode.com/posts?q=${keyword}`))
+                .pipe(
+                    pluck('data')
+                )
+            )
+        ).subscribe(console.log)
+
+    </script>
+    <!-- <script>
+        const Observable = rxjs.Observable
+
+        const observalble = new Observable((observer) => {
+            // setTimeout(() => {
+                // observer.next({
+                //     name: '张三'
+                // })
+            // },2000)
+            let index = 0
+            let timer = setInterval(() => {
+                observer.next(index++)
+                if(index === 3){
+                    // observer.complete()
+                    observer.error('错误信息')
+                    clearInterval(timer)
+                }
+            }, 1000)
+        })
+
+        const observer = {
+            next(value) {
+                console.log(value);
+
+            },
+            complete(){
+                console.log('终止了');
+            },
+            error(error){
+                console.log(error);
+            }
+        }
+
+        observalble.subscribe(observer)
+    </script> -->
+    <!-- <script>
+      const Subject = rxjs.Subject;
+      const BehaviorSubject = rxjs.BehaviorSubject;
+      const ReplaySubject = rxjs.ReplaySubject
+
+      const demoSubject = new Subject();
+      const demoBehaviorSubject = new BehaviorSubject("默认值");
+      const rSubject = new ReplaySubject()
+
+      rSubject.subscribe(value => {
+        console.log(value);
+      })
+
+      rSubject.next('Hello 1')
+      rSubject.next('Hello 2')
+
+      setTimeout(() => {
+        rSubject.subscribe({
+            next(value){
+                console.log(value);
+            }
+        })
+
+      }, 3000) 
+
+    //   demoBehaviorSubject.subscribe({
+    //     next(value) {
+    //       console.log(value);
+    //     },
+    //   });
+    //   demoBehaviorSubject.next('hello')
+
+      // demoSubject.subscribe({
+      //     next(value){
+      //         console.log(value);
+      //     }
+      // })
+
+      // demoSubject.subscribe({
+      //     next(value){
+      //         console.log(value);
+      //     }
+      // })
+
+      // setTimeout(() => {
+      //     demoSubject.next('hello')
+      // }, 2000)
+    </script> -->
+  </body>
+</html>
 
